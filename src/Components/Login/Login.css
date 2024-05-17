@@ -36,3 +36,10 @@
     color: dodgerblue;
     cursor: pointer;
 }
+@media (max-width: 600px){
+    .main-container{
+        width: 90%;
+        height: fit-content;
+
+    }
+}

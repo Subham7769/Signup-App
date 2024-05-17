@@ -98,7 +98,12 @@ function SignUp() {
           }}
           error={nameError}
           helperText={nameError ? "Name is required" : ""}
-          style={{ width: "45%",marginBottom: "1.5rem"}}
+          sx={{
+            width: "45%", // Default width
+            marginBottom: "1.5rem",
+            "@media (max-width: 600px)": { // Target screens below 600px width
+              width: "95%", // Set width to 100% for smaller screens
+            },}}
         />
         <TextField
           id="outlined-basic"
@@ -111,7 +116,12 @@ function SignUp() {
           }}
           error={userNameError}
           helperText={userNameError ? "Username is required" : ""}
-          style={{ width: "45%",marginBottom: "1.5rem"}}
+          sx={{
+            width: "45%", // Default width
+            marginBottom: "1.5rem",
+            "@media (max-width: 600px)": { // Target screens below 600px width
+              width: "95%", // Set width to 100% for smaller screens
+            },}}
         />
         <TextField
           id="outlined-basic"
@@ -124,7 +134,12 @@ function SignUp() {
           }}
           error={emailError}
           helperText={emailError ? "Email is required" : ""}
-          style={{ width: "45%",marginBottom: "1.5rem"}}
+          sx={{
+            width: "45%", // Default width
+            marginBottom: "1.5rem",
+            "@media (max-width: 600px)": { // Target screens below 600px width
+              width: "95%", // Set width to 100% for smaller screens
+            },}}
         />
         <TextField
           id="outlined-basic"
@@ -137,7 +152,12 @@ function SignUp() {
           }}
           error={phoneNoError}
           helperText={phoneNoError ? "Phone No. is required" : ""}
-          style={{ width: "45%",marginBottom: "1.5rem"}}
+          sx={{
+            width: "45%", // Default width
+            marginBottom: "1.5rem",
+            "@media (max-width: 600px)": { // Target screens below 600px width
+              width: "95%", // Set width to 100% for smaller screens
+            },}}
         />
         <TextField
           id="outlined-basic"
@@ -150,7 +170,12 @@ function SignUp() {
           }}
           error={passwordError}
           helperText={passwordError ? "Password is required" : ""}
-          style={{ width: "45%",marginBottom: "1.5rem"}}
+          sx={{
+            width: "45%", // Default width
+            marginBottom: "1.5rem",
+            "@media (max-width: 600px)": { // Target screens below 600px width
+              width: "95%", // Set width to 100% for smaller screens
+            },}}
         />
         <TextField
           id="outlined-basic"
@@ -163,7 +188,12 @@ function SignUp() {
           }}
           error={confirmPasswordError}
           helperText={confirmPasswordError ? "Confirm Password is required" : ""}
-          style={{ width: "45%",marginBottom: "1.5rem"}}
+          sx={{
+            width: "45%", // Default width
+            marginBottom: "1.5rem",
+            "@media (max-width: 600px)": { // Target screens below 600px width
+              width: "95%", // Set width to 100% for smaller screens
+            },}}
         />
         {/* <FormControlLabel required control={<Checkbox />} label="Required" checked={tnc}/> */}
 
