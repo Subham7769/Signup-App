@@ -21,7 +21,7 @@ function SignUp() {
 
   const navigate = useNavigate();
 
-  const validateName = (name) => /^[A-Za-z]+$/.test(name);
+  const validateName = (name) => /^[A-Za-z]+( [A-Za-z]+)*$/.test(name);
   const validateUserName = (userName) => /^[A-Za-z0-9!@#\$%\^\&*\)\(+=._-]+$/.test(userName);
   const validatePassword = (password) => /^[A-Za-z0-9!@#\$%\^\&*\)\(+=._-]+$/.test(password);
   const validateEmail = (email) => /^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(email);
@@ -169,6 +169,8 @@ function SignUp() {
           />
           <TextField
             id="outlined-basic"
+            type="password"
+
             label="Password"
             variant="standard"
             value={password}
@@ -188,6 +190,7 @@ function SignUp() {
           />
           <TextField
             id="outlined-basic"
+            type="password"
             label="Confirm Password"
             variant="standard"
             value={confirmPassword}
