@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
-import Header  from "../Header/Header";
+import { Button, TextField } from "@mui/material";
+import Header from "../Header/Header";
 import { Link, useNavigate } from "react-router-dom";
 
 function SignUp() {
@@ -12,201 +12,209 @@ function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [tnc, setTnc] = useState(false);
 
-  const [nameError, setNameError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [userNameError, setUserNameError] = useState(false);
-  const [phoneNoError, setPhoneNoError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
-  
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [userNameError, setUserNameError] = useState("");
+  const [phoneNoError, setPhoneNoError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+
   const navigate = useNavigate();
+
+  const validateName = (name) => /^[A-Za-z]+$/.test(name);
+  const validateUserName = (userName) => /^[A-Za-z0-9!@#\$%\^\&*\)\(+=._-]+$/.test(userName);
+  const validatePassword = (password) => /^[A-Za-z0-9!@#\$%\^\&*\)\(+=._-]+$/.test(password);
+  const validateEmail = (email) => /^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(email);
+  const validatePhoneNo = (phoneNo) => /^\+\d{1,4}\s\d{6,14}$/.test(phoneNo);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    
-    // Check if  name is empty
-    if (!name.trim()) {
-      setNameError(true);
-      return;
-    }
-    
-    // Check if username is empty
-    if (!userName.trim()) {
-      setUserNameError(true);
-      return;
+    let isValid = true;
+
+    if (!name.trim() || !validateName(name)) {
+      setNameError("Name is required and should contain only alphabets");
+      isValid = false;
+    } else {
+      setNameError("");
     }
 
-    // Check if email is empty
-    if (!email.trim()) {
-      setEmailError(true);
-      return;
+    if (!userName.trim() || !validateUserName(userName)) {
+      setUserNameError("Username is required and should contain alphanumeric and special characters");
+      isValid = false;
+    } else {
+      setUserNameError("");
     }
 
-    // Check if Phone no. is empty
-    if (!phoneNo.trim()) {
-      setPhoneNoError(true);
-      return;
+    if (!email.trim() || !validateEmail(email)) {
+      setEmailError("Email is required and should be a valid Gmail address");
+      isValid = false;
+    } else {
+      setEmailError("");
     }
 
-    // Check if password is empty
-    if (!password.trim()) {
-      setPasswordError(true);
-      return;
-    }
-    // Check if confirm password is empty
-    if (!confirmPassword.trim()) {
-      setConfirmPasswordError(true);
-      return;
+    if (!phoneNo.trim() || !validatePhoneNo(phoneNo)) {
+      setPhoneNoError("Phone No. is required and should be in the format +CountryCode PhoneNumber");
+      isValid = false;
+    } else {
+      setPhoneNoError("");
     }
 
+    if (!password.trim() || !validatePassword(password) || password === userName) {
+      setPasswordError("Password is required and should not be the same as the username");
+      isValid = false;
+    } else {
+      setPasswordError("");
+    }
 
+    if (!confirmPassword.trim() || confirmPassword !== password) {
+      setConfirmPasswordError("Confirm Password must match the Password");
+      isValid = false;
+    } else {
+      setConfirmPasswordError("");
+    }
 
-
-
-    // Reset form
-    setName("");
-    setUserName("");
-    setEmail("");
-    setPhoneNo("");
-    setPassword("");
-    setConfirmPassword("");
-    setNameError(false);
-    setEmailError(false);
-    setPhoneNoError(false);
-    setUserNameError(false);
-    setPasswordError(false);
-    setConfirmPasswordError(false);
-    setTnc(false);
-    navigate('/');
+    if (isValid) {
+      // Reset form
+      setName("");
+      setUserName("");
+      setEmail("");
+      setPhoneNo("");
+      setPassword("");
+      setConfirmPassword("");
+      setTnc(false);
+      navigate('/');
+    }
   };
-
 
   return (
     <div className="main-container">
-    <Header heading={'Sign Up'} subHeading={'Create new account'}/>
-    <div className="form-container">
-
-      <form onSubmit={handleOnSubmit}>
-        <TextField
-          id="outlined-basic"
-          label="Name"
-          variant="standard"
-          value={name}
-          onChange={(e) => {
-            setName(e.target.value);
-            setNameError(false); 
-          }}
-          error={nameError}
-          helperText={nameError ? "Name is required" : ""}
-          sx={{
-            width: "45%", // Default width
-            marginBottom: "1.5rem",
-            "@media (max-width: 600px)": { // Target screens below 600px width
-              width: "95%", // Set width to 100% for smaller screens
-            },}}
-        />
-        <TextField
-          id="outlined-basic"
-          label="Username"
-          variant="standard"
-          value={userName}
-          onChange={(e) => {
-            setUserName(e.target.value);
-            setUserNameError(false); 
-          }}
-          error={userNameError}
-          helperText={userNameError ? "Username is required" : ""}
-          sx={{
-            width: "45%", // Default width
-            marginBottom: "1.5rem",
-            "@media (max-width: 600px)": { // Target screens below 600px width
-              width: "95%", // Set width to 100% for smaller screens
-            },}}
-        />
-        <TextField
-          id="outlined-basic"
-          label="Email"
-          variant="standard"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            setEmailError(false); 
-          }}
-          error={emailError}
-          helperText={emailError ? "Email is required" : ""}
-          sx={{
-            width: "45%", // Default width
-            marginBottom: "1.5rem",
-            "@media (max-width: 600px)": { // Target screens below 600px width
-              width: "95%", // Set width to 100% for smaller screens
-            },}}
-        />
-        <TextField
-          id="outlined-basic"
-          label="Phone No."
-          variant="standard"
-          value={phoneNo}
-          onChange={(e) => {
-            setPhoneNo(e.target.value);
-            setPhoneNoError(false); 
-          }}
-          error={phoneNoError}
-          helperText={phoneNoError ? "Phone No. is required" : ""}
-          sx={{
-            width: "45%", // Default width
-            marginBottom: "1.5rem",
-            "@media (max-width: 600px)": { // Target screens below 600px width
-              width: "95%", // Set width to 100% for smaller screens
-            },}}
-        />
-        <TextField
-          id="outlined-basic"
-          label="Password"
-          variant="standard"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-            setPasswordError(false); 
-          }}
-          error={passwordError}
-          helperText={passwordError ? "Password is required" : ""}
-          sx={{
-            width: "45%", // Default width
-            marginBottom: "1.5rem",
-            "@media (max-width: 600px)": { // Target screens below 600px width
-              width: "95%", // Set width to 100% for smaller screens
-            },}}
-        />
-        <TextField
-          id="outlined-basic"
-          label="Confirm Password"
-          variant="standard"
-          value={confirmPassword}
-          onChange={(e) => {
-            setConfirmPassword(e.target.value);
-            setConfirmPasswordError(false); 
-          }}
-          error={confirmPasswordError}
-          helperText={confirmPasswordError ? "Confirm Password is required" : ""}
-          sx={{
-            width: "45%", // Default width
-            marginBottom: "1.5rem",
-            "@media (max-width: 600px)": { // Target screens below 600px width
-              width: "95%", // Set width to 100% for smaller screens
-            },}}
-        />
-        {/* <FormControlLabel required control={<Checkbox />} label="Required" checked={tnc}/> */}
-
-        <Button 
-        type="submit" 
-        variant="contained"
-        style={{ width: "45%"}}
-        >Sign Up</Button>
-        <div className='forgetPassword'>
+      <Header heading={'Sign Up'} subHeading={'Create new account'} />
+      <div className="form-container">
+        <form onSubmit={handleOnSubmit}>
+          <TextField
+            id="outlined-basic"
+            label="Name"
+            variant="standard"
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+              setNameError("");
+            }}
+            error={!!nameError}
+            helperText={nameError}
+            sx={{
+              width: "45%",
+              marginBottom: "1.5rem",
+              "@media (max-width: 600px)": {
+                width: "95%",
+              },
+            }}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Username"
+            variant="standard"
+            value={userName}
+            onChange={(e) => {
+              setUserName(e.target.value);
+              setUserNameError("");
+            }}
+            error={!!userNameError}
+            helperText={userNameError}
+            sx={{
+              width: "45%",
+              marginBottom: "1.5rem",
+              "@media (max-width: 600px)": {
+                width: "95%",
+              },
+            }}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Email"
+            variant="standard"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setEmailError("");
+            }}
+            error={!!emailError}
+            helperText={emailError}
+            sx={{
+              width: "45%",
+              marginBottom: "1.5rem",
+              "@media (max-width: 600px)": {
+                width: "95%",
+              },
+            }}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Phone No."
+            variant="standard"
+            value={phoneNo}
+            onChange={(e) => {
+              setPhoneNo(e.target.value);
+              setPhoneNoError("");
+            }}
+            error={!!phoneNoError}
+            helperText={phoneNoError}
+            sx={{
+              width: "45%",
+              marginBottom: "1.5rem",
+              "@media (max-width: 600px)": {
+                width: "95%",
+              },
+            }}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Password"
+            variant="standard"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setPasswordError("");
+            }}
+            error={!!passwordError}
+            helperText={passwordError}
+            sx={{
+              width: "45%",
+              marginBottom: "1.5rem",
+              "@media (max-width: 600px)": {
+                width: "95%",
+              },
+            }}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Confirm Password"
+            variant="standard"
+            value={confirmPassword}
+            onChange={(e) => {
+              setConfirmPassword(e.target.value);
+              setConfirmPasswordError("");
+            }}
+            error={!!confirmPasswordError}
+            helperText={confirmPasswordError}
+            sx={{
+              width: "45%",
+              marginBottom: "1.5rem",
+              "@media (max-width: 600px)": {
+                width: "95%",
+              },
+            }}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            style={{ width: "45%" }}
+          >Sign Up</Button>
+          <div className='forgetPassword'>
             <Link to="/">Already have account !</Link>
           </div>
-      </form>
-    </div>
+        </form>
+      </div>
     </div>
   );
 }

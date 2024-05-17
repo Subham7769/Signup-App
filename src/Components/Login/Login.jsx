@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Button, TextField } from "@mui/material";
 import Header from '../Header/Header';
-import './Login.css'
 import { Link } from 'react-router-dom';
 
 function Login() {
@@ -50,11 +49,12 @@ function Login() {
             error={userNameError}
             helperText={userNameError ? "Username is required" : ""}
             sx={{
-            width: "45%", // Default width
-            marginBottom: "1.5rem",
-            "@media (max-width: 600px)": { // Target screens below 600px width
-              width: "95%", // Set width to 100% for smaller screens
-            },}}
+              width: "50%",
+              marginBottom: "1.5rem",
+              "@media (max-width: 600px)": {
+                width: "95%",
+              },
+            }}
           />
           <TextField
             id="filled-password-input"
@@ -69,11 +69,12 @@ function Login() {
             error={passwordError}
             helperText={passwordError ? "Password is required" : ""}
             sx={{
-            width: "45%", // Default width
-            marginBottom: "1.5rem",
-            "@media (max-width: 600px)": { // Target screens below 600px width
-              width: "95%", // Set width to 100% for smaller screens
-            },}}
+              width: "50%",
+              marginBottom: "1.5rem",
+              "@media (max-width: 600px)": {
+                width: "95%",
+              },
+            }}
           />
           <div className='forgetPassword'>
             <a href="#">Forget your password?</a>
